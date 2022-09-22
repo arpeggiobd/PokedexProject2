@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import Dashboard from "../Dashboard";
 
@@ -131,8 +131,8 @@ function PokemonDetailed(props) {
             <Container className={pokemons.types && pokemons.types[0].type.name}>
                 <Top>
                     <First>
-                        <NavLink exact to="/" element={<Dashboard />}>Home
-                        </NavLink>
+                        <Link exact to="/" element={<Dashboard />}>Home
+                        </Link>
                         <div>
                             {" "}
                         </div>
