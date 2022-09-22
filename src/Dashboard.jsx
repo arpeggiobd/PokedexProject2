@@ -18,16 +18,13 @@ function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [pokemons, setPokemons] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const [searching, setSearching] = useState(false);
-
-  const itemsPerPage = 24;
 
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      setNotFound(false);
-      const data = await PokemonApi(itemsPerPage, itemsPerPage * page);
+      const data = await PokemonApi(24, 24 * page);
+
       const promises = data.results.map(async (pokemon) => {
         return await getPokemonData(pokemon.url);
       });
@@ -35,36 +32,19 @@ function Dashboard() {
       const results = await Promise.all(promises);
       setPokemons(results);
       setLoading(false);
-      setTotalPages(Math.ceil(data.count / itemsPerPage));
+      setTotalPages(Math.ceil(data.count / 24));
+      setNotFound(false);
     } catch (error) {
       console.log("fetchPokemons error: ", error);
     }
   };
 
-  function loadFavoritePokemons() {
-    const pokemons = JSON.parse(window.localStorage.getItem(favoritesKey)) || []
-    setFavorites(pokemons)
-  }
 
   useEffect(() => {
-    loadFavoritePokemons()
-  }, []);
-
-  useEffect(() => {
-    fetchPokemons();
-  }, [page]);
-
-  function updateFavoritePokemons(name) {
-    const updatedFavorites = [...favorites]
-    const favoriteIndex = favorites.indexOf(name)
-    if (favoriteIndex >= 0) {
-      updatedFavorites.splice(favoriteIndex, 1);
-    } else {
-      updatedFavorites.push(name);
+    if (!searching) {
+      fetchPokemons();
     }
-    window.localStorage.setItem(favoritesKey, JSON.stringify(updatedFavorites))
-    setFavorites(updatedFavorites);
-  }
+  }, [page]);
 
   const onSearchHandler = async (pokemon) => {
     if (!pokemon) {
@@ -88,27 +68,21 @@ function Dashboard() {
   };
 
   return (
-    <FavoriteProvider
-      value={{
-        favoritePokemons: favorites,
-        updateFavoritePokemons: updateFavoritePokemons,
-      }}
-    >
-      <div>
-        <Navbar />
-        <Searchbar onSearch={onSearchHandler} />
-        {notFound ? (
-          <div class-name="not-found-text">Use Exact Name</div>
-        ) :
-          (<Pokedex
-            pokemons={pokemons}
-            loading={loading}
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages}
-          />)}
-      </div>
-    </FavoriteProvider>
+    <div>
+      <Navbar />
+      <Searchbar onSearch={onSearchHandler} />
+      {notFound ? (
+        <div class-name="not-found-text">Use Exact Name</div>
+      ) :
+        (<Pokedex
+          pokemons={pokemons}
+          loading={loading}
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
+        )}
+    </div>
   );
 }
 
