@@ -6,35 +6,35 @@ function PokemonDetail() {
     const [pokemons, setPokemons] = useState({});
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
-  
+
     const searchPokemon = async (id) => {
-      try {
-        setLoading(false);
-        let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
-        const res = await fetch(url);
-        const data = await res.json();
-  
-        console.log(data);
-        setPokemons(data);
-        setLoading(true);
-      } catch (error) {
-        console.log("error: ", error)
-      }
+        try {
+            setLoading(false);
+            let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
+            const res = await fetch(url);
+            const data = await res.json();
+
+            console.log(data);
+            setPokemons(data);
+            setLoading(true);
+        } catch (error) {
+            console.log("error: ", error)
+        }
     };
-  
+
     useEffect(() => {
-      searchPokemon(id);
+        searchPokemon(id);
     }, []);
-  
+
     {
-      console.log(pokemons);
+        console.log(pokemons);
     }
-  
+
     return (
-      <div>
-        <PokemonDetailed pokemons={pokemons} />
-      </div>
+        <div>
+            <PokemonDetailed pokemons={pokemons} />
+        </div>
     );
-  }
-  
+}
+
 export default PokemonDetail

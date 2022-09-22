@@ -24,7 +24,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path=":id" element={<PokemonDetail />} />
+            <Route path="/detail/:id" element={<PokemonDetail />} />
           </Routes>
         </div>
       </div>
