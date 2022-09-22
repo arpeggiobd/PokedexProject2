@@ -1,8 +1,10 @@
 import React from "react";
+import FavoriteContext from "../context/favoritesContext";
 
 function Pokemon(props) {
     const { favoritePokemons, updateFavoritePokemons } = useContext(FavoriteContext)
     const { pokemon } = props;
+    
     const onHeartClick = () => {
         updateFavoritePokemons(pokemon.name)
     }

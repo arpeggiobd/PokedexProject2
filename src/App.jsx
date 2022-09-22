@@ -8,6 +8,7 @@ import { PokemonApi } from './PokemonApi'
 import { getPokemonData } from './getPokemonData'
 import { FavoriteProvider } from './context/favoritesContext'
 
+const favoritesKey = 'f'
 
 function App() {
   const [page, setPage] = useState(0)
@@ -35,6 +36,15 @@ function App() {
     }
   }
 
+  function loadFavoritePokemons() {
+    const pokemons = JSON.parse(window.localStorage.getItem(favoritesKey))
+    setFavourite(pokemons)
+  }
+
+  useEffect(() =>{
+    loadFavoritePokemons()
+  }, []);
+
   useEffect(() => {
     fetchPokemons();
   }, [page])
@@ -47,9 +57,10 @@ function App() {
     } else {
       updatedFavorites.push(name);
     }
+    window.localStorage.setItem(favoriteIndex, JSON.stringify(updatedFavorites));
     setFavourite(updatedFavorites)
   }
-  
+
   return (
     <FavoriteProvider
       value={{
