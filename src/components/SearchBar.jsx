@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
 
 function Searchbar(props) {
     const [search, setSearch] = useState("")
@@ -7,11 +9,11 @@ function Searchbar(props) {
     function onChangeHandler(e) {
         setSearch(e.target.value)
         if (e.target.value.length === 0) {
-            onSearch(undefined);
+            onSearch(null);
         }
     }
 
-    function onButtonClickHandler() {
+    const onButtonClickHandler= async (e) => {
         onSearch(search)
     }
 

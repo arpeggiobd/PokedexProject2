@@ -100,7 +100,7 @@ function Pokemon(props) {
 
     return (
         <>
-            {pokemon.id <= 1000 ?
+            {pokemon.id <= 650 ?
                 <Link to={`/detail/` + pokemon.id} props={pokemon}>
 
                     <Card className={pokemon.types[0].type.name}>
