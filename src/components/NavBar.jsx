@@ -7,6 +7,7 @@ function NavBar () {
             <div>
                 <img alt ='pokedex-logo' src ={pokedexLogo} className="navbar-img" />
             </div>
+            <div>❤</div>
         </nav>
     )
 }
