@@ -7,7 +7,7 @@ function Searchbar(props) {
     function onChangeHandler(e) {
         setSearch(e.target.value)
         if (e.target.value.length === 0) {
-            onSearch(undefined)
+            onSearch(undefined);
         }
     }
 
