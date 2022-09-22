@@ -1,18 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-
-const Paginationn = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-`;
-
-
 
 const Pagination = (props) => {
     const { page, totalPages, onLeftClick, onRightClick } = props
     return (
-        <Pagination>
+        <div className="pagination-container">
             <button onClick={onLeftClick}>
                 <div>
                     ◀️
@@ -26,7 +17,7 @@ const Pagination = (props) => {
                     ▶️
                 </div>
             </button>
-        </Pagination>
+        </div>
     )
 }
 

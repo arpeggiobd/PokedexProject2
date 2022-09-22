@@ -13,7 +13,7 @@ function Searchbar(props) {
         }
     }
 
-    const onButtonClickHandler= async (e) => {
+    function onButtonClickHandler (e) {
         onSearch(search)
     }
 
