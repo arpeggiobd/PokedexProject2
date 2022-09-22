@@ -61,7 +61,7 @@ function Dashboard() {
     } else {
       setPokemons([result]);
       setPage(0);
-      setTotal(1);
+      setTotalPages(1);
     }
     setLoading(false);
     setSearching(false);
