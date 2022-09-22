@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import FavoriteContext from "../context/favoritesContext";
 
 const Navbar = () => {
@@ -8,7 +9,9 @@ const Navbar = () => {
   return (
     <nav>
       <div>
+        <Link>
         <img alt="pokeapi-logo" src={pokedexLogo} className="navbar-img" />
+        </Link>
       </div>
       <div>{favoritePokemons.length} ❤️</div>
     </nav>

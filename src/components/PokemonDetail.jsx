@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Navbar from "./Navbar";
 import PokemonDetailed from "./PokemonDetailed";
 
 function PokemonDetail() {

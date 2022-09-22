@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ProgressBar from "./ProgressBar";
 import Dashboard from "../Dashboard";
+import Navbar from "./Navbar";
 
 const B2 = styled.div`
   display: flex;
@@ -131,7 +132,7 @@ function PokemonDetailed(props) {
             <Container className={pokemons.types && pokemons.types[0].type.name}>
                 <Top>
                     <First>
-                        <Link exact to="/" element={<Dashboard />}>Home
+                        <Link exact to="/" element={<Dashboard />}><Navbar />
                         </Link>
                         <div>
                             {" "}
