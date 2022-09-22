@@ -1,23 +1,39 @@
 import React from "react";
+import styled from "styled-components";
 
-const Pagination = (props) => {
+const PaginationDiv = styled.div`
+display: flex;
+flex-direction: row;
+align-items: center;
+`;
+
+const Button = styled.button`
+background-color: #363636;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin: 0px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
+
+function Pagination(props) {
     const { page, totalPages, onLeftClick, onRightClick } = props
     return (
-        <div className="pagination-container">
-            <button onClick={onLeftClick}>
-                <div>
-                    ◀️
-                </div>
-            </button>
+        <PaginationDiv>
+            <Button onClick={onLeftClick}>
+                ◀️
+            </Button>
             <div>
                 {page} of {totalPages}
             </div>
-            <button onClick={onRightClick}>
-                <div>
-                    ▶️
-                </div>
-            </button>
-        </div>
+            <Button onClick={onRightClick}>
+                ▶️
+            </Button>
+        </PaginationDiv>
     )
 }
 

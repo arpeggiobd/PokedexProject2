@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react'
 
 const FavoriteContext = React.createContext({
     favoritePokemons: [],
-    updateFavoritePokemons: (id) => null
+    updateFavoritePokemon: (id) => null
 })
 
 export const FavoriteProvider = FavoriteContext.Provider
 
-export default FavoriteContext;
+export default FavoriteContext

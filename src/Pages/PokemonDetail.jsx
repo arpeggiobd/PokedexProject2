@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
-import Navbar from "./Navbar";
-import PokemonDetailed from "./PokemonDetailed";
+import { useParams } from "react-router-dom";
+import Header from "../components/Header";
+import PokemonDetailed from "../components/PokemonDetailed";
 
 function PokemonDetail() {
     const [pokemons, setPokemons] = useState({});
@@ -33,6 +33,7 @@ function PokemonDetail() {
 
     return (
         <div>
+            <Header />
             <PokemonDetailed pokemons={pokemons} />
         </div>
     );

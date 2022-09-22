@@ -1,20 +1,30 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import Searchbar from "./components/Searchbar";
-import Pokedex from "./components/Pokedex";
-import { PokemonApi } from "./PokemonApi";
-import { getPokemonData } from "./getPokemonData";
-import { FavoriteProvider } from "./context/favoritesContext";
-import { searchPokemon } from "./SearchPokemon";
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom"
+import SearchBar from "../components/SearchBar";
+import Pokedex from "../components/Pokedex";
+import { PokemonApi, getPokemonData, searchPokemon } from "../PokemonApi";
+import styled from "styled-components";
+import Header from "../components/Header";
 
-
-const favoritesKey = "f"
+const Div = styled.div`
+ text-align: center;
+  font-size: 1.25rem;
+  padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+@media (max-width: 768px) {
+    display: block;
+  }
+  @media (max-width: 1200px) and (min-width: 769px) {
+    display: flex;
+;
+  }
+`;
 
 function Dashboard() {
   const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [pokemons, setPokemons] = useState([]);
@@ -46,7 +56,7 @@ function Dashboard() {
     }
   }, [page]);
 
-  const onSearchHandler = async (pokemon) => {
+  const onSearch = async (pokemon) => {
     if (!pokemon) {
       return fetchPokemons();
     }
@@ -61,27 +71,27 @@ function Dashboard() {
     } else {
       setPokemons([result]);
       setPage(0);
-      setTotalPages(1);
+      setTotal(1);
     }
     setLoading(false);
     setSearching(false);
   };
 
   return (
-    <div>
-      <Navbar />
-      <Searchbar onSearch={onSearchHandler} />
-      {notFound ? (
-        <div class-name="not-found-text">Use Exact Name</div>
-      ) :
-        (<Pokedex
-          pokemons={pokemons}
-          loading={loading}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
-        )}
+<div>
+    <Header />
+    <SearchBar onSearch={onSearch} />
+    {notFound ? (
+            <Div className="not-found-text"><h1>Use Exact Name</h1></Div>
+          ) : (
+      <Pokedex
+        pokemons={pokemons}
+        page={page}
+        setPage={setPage}
+        total={total}
+        loading={loading}
+      />
+      )}
     </div>
   );
 }

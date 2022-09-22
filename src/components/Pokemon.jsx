@@ -5,9 +5,10 @@ import styled from "styled-components";
 
 const Card = styled.div`
   display: flex;
+  //box-shadow:4px 4px 4px rgba(0,0,0,0);
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-  rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   cursor: pointer;
   padding: 5px;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
@@ -16,6 +17,7 @@ const Card = styled.div`
     width: 80px;
     height: 80px;
     opacity: 1;
+    //position: absolute;
     transition: opacity 500ms ease-in-out 0s;
   }
   &:hover {
@@ -29,17 +31,17 @@ const Card = styled.div`
 const Img = styled.div`
   padding: 0px 5px;
 `;
-
 const Text = styled.div`
   margin-right: 10px;
   font: bold;
   text-transform: capitalize;
   border-radius: 20px;
   box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-  rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
   cursor: pointer;
-  margin-bottom: 10px;
+margin-bottom: 10px;
   padding: 5px;
+  //padding-left: 10px;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border: 3px solid rgba(249, 249, 249, 0.1);
   width: 90px;
@@ -48,7 +50,6 @@ const Text = styled.div`
   display: flex;
   
 `;
-
 const Bottom = styled.div`
   display: flex;
   flex-direction: row;
@@ -56,14 +57,11 @@ const Bottom = styled.div`
   align-items: center;
   
 `;
-
 const Type = styled.div`
   display: flex;
 `;
-
 const Favorite = styled.div`
 `;
-
 const Button = styled.button`
 `;
 
@@ -76,7 +74,6 @@ const Top = styled.div`
     text-transform: capitalize;
   }
 `;
-
 const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,16 +82,15 @@ const Body = styled.div`
 `;
 
 function Pokemon(props) {
-    const { favoritePokemons, updateFavoritePokemons } = useContext(FavoriteContext)
     const { pokemon } = props;
+    const { favoritePokemons, updateFavoritePokemon } = useContext(FavoriteContext);
 
     const redHeart = "❤️";
     const blackHeart = "🖤";
     const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart
-
     const clickHeart = (e) => {
         e.preventDefault();
-        updateFavoritePokemons(pokemon.name);
+        updateFavoritePokemon(pokemon.name);
 
     }
 
@@ -102,23 +98,20 @@ function Pokemon(props) {
         <>
             {pokemon.id <= 650 ?
                 <Link to={`/detail/` + pokemon.id} props={pokemon}>
-
                     <Card className={pokemon.types[0].type.name}>
                         <Img>
-                            <img alt={pokemon.name} src={pokemon.sprites.front_default} className="pokemon-image" />
+                            <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
                         </Img>
                         <Body>
                             <Top>
                                 <h3>{pokemon.name}</h3>
                                 <div>#{pokemon.id}</div>
                             </Top>
-
                             <Bottom>
                                 <Type>
                                     {pokemon.types.map((type, idx) => {
                                         return <Text key={idx} className={type.type.name}
                                             id={type.type.name}>{type.type.name}</Text>
-
                                     })}
                                 </Type>
                                 <button onClick={clickHeart}>
@@ -126,14 +119,12 @@ function Pokemon(props) {
                                 </button>
                             </Bottom>
                         </Body>
-
                     </Card>
                 </Link> :
                 <Link to={`/detail/` + pokemon.id} props={pokemon}>
-
                     <Card className={pokemon.types[0].type.name}>
                         <Img>
-                            <img src={`../images/animated/${pokemon.id}.png`} />
+                            <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
                         </Img>
                         <Body>
                             <Top>
@@ -146,7 +137,6 @@ function Pokemon(props) {
                                     {pokemon.types.map((type, idx) => {
                                         return <Text key={idx} className={type.type.name}
                                             id={type.type.name}>{type.type.name}</Text>
-
                                     })}
                                 </Type>
                                 <Button onClick={clickHeart}  >
@@ -154,11 +144,8 @@ function Pokemon(props) {
                                 </Button>
                             </Bottom>
                         </Body>
-
                     </Card>
                 </Link>
-
-
             }
         </>
     );
