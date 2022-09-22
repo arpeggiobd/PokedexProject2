@@ -7,6 +7,7 @@ import Pokedex from './components/PokeDex'
 import { PokemonApi } from './PokemonApi'
 import { getPokemonData } from './getPokemonData'
 import { FavoriteProvider } from './context/favoritesContext'
+import { SearchPokemon } from './SearchPokemon'
 
 const favoritesKey = 'f'
 
@@ -14,10 +15,11 @@ function App() {
   const [page, setPage] = useState(0)
   const [totalPages, setTotalPages] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [notFound, setNotFound] = usestate(false)
   const [pokemons, setPokemons] = useState([])
   const [favourite, setFavourite] = useState([])
 
-  const itemsPerPage = 50
+  const itemsPerPage = 25;
 
   const fetchPokemons = async () => {
     try {
@@ -53,12 +55,29 @@ function App() {
     const updatedFavorites = [...favorites]
     const favoriteIndex = favorites.indexOf(name)
     if (favoriteIndex >= 0) {
-      updatedFavorites.slice(favoriteIndex, 1);
+      updatedFavorites.splice(favoriteIndex, 1);
     } else {
       updatedFavorites.push(name);
     }
-    window.localStorage.setItem(favoriteIndex, JSON.stringify(updatedFavorites));
+    window.localStorage.setItem(favoritesKey, JSON.stringify(updatedFavorites));
     setFavourite(updatedFavorites)
+  }
+
+  const onSearchHandler = async (pokemon) => {
+    if(!pokemon) {
+      return fetchPokemons();
+    }
+
+    setLoading(true)
+    setNotFound(false)
+    const result = await SearchPokemon(pokemon)
+    if(!result) {
+      
+      setNotFound(true)
+    } else {
+      setPokemons([result])
+    }
+    setLoading(false)
   }
 
   return (
@@ -70,7 +89,7 @@ function App() {
     >
         <div>
           <NavBar />
-          <SearchBar />
+          <SearchBar onSearch={onSearchHandler}/>
           <Pokedex
             pokemons={pokemons.results}
             loading={loading}

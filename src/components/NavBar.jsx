@@ -11,7 +11,7 @@ function NavBar () {
             <div>
                 <img alt ='pokedex-logo' src ={pokedexLogo} className="navbar-img" />
             </div>
-            <div>{favoritePokemons && favoritePokemons.length}❤</div>
+            <div>{favoritePokemons.length}❤</div>
         </nav>
     )
 }

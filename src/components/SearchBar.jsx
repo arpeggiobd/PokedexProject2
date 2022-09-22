@@ -2,24 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { PokemonApi } from "../PokemonApi";
 
-function SearchBar () {
+function SearchBar(props) {
     const [search, setSearch] = useState("")
-    const [pokemon, setPokemon] = useState()
+    const { onSearch } = props
 
     function onChangeHandler(e) {
-        console.log("pokemon: ", e.target.value)
         setSearch(e.target.value)
+        if(e.target.value.length === 0) {
+            onSearch(undefined)
+        }
     }
 
     function onButtonClickHandler() {
-        onSearchHandler(search)
+        onSearch(search)
     }
-
-    const onSearchHandler = async (pokemon) => {
-        const result = await PokemonApi(pokemon)
-        setPokemon(result)
-        // console.log("search: ", pokemon)
-      }
 
 
     return (
@@ -30,13 +26,6 @@ function SearchBar () {
             <div className="searchbar-button">
                 <button onClick={onButtonClickHandler}>Search</button>
             </div>
-            {pokemon ? (
-                <div>
-                    <div>Name: {pokemon.name}</div>
-                    <div>Weight :{pokemon.weight}</div>
-                    <img alt={pokemon.name} src={pokemon.sprites.front_default} />
-                </div>
-            ) : null}
         </div>
     )
 }
