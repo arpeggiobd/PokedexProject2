@@ -5,23 +5,6 @@ import { PokemonApi, getPokemonData, searchPokemon } from "../PokemonApi";
 import styled from "styled-components";
 import Header from "../components/Header";
 
-const Div = styled.div`
- text-align: center;
-  font-size: 1.25rem;
-  padding: 20px;
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
-@media (max-width: 768px) {
-    display: block;
-  }
-  @media (max-width: 1200px) and (min-width: 769px) {
-    display: flex;
-;
-  }
-`;
-
 function Dashboard() {
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
@@ -30,10 +13,12 @@ function Dashboard() {
   const [pokemons, setPokemons] = useState([]);
   const [searching, setSearching] = useState(false);
 
+  const itemPerPage = 24
+
   const fetchPokemons = async () => {
     try {
       setLoading(true);
-      const data = await PokemonApi(24, 24 * page);
+      const data = await PokemonApi(itemPerPage, itemPerPage * page);
 
       const promises = data.results.map(async (pokemon) => {
         return await getPokemonData(pokemon.url);
@@ -42,7 +27,7 @@ function Dashboard() {
       const results = await Promise.all(promises);
       setPokemons(results);
       setLoading(false);
-      setTotalPages(Math.ceil(data.count / 24));
+      setTotal(Math.ceil(data.count / itemPerPage));
       setNotFound(false);
     } catch (error) {
       console.log("fetchPokemons error: ", error);
@@ -95,5 +80,22 @@ function Dashboard() {
     </div>
   );
 }
+
+const Div = styled.div`
+ text-align: center;
+  font-size: 1.25rem;
+  padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+@media (max-width: 768px) {
+    display: block;
+  }
+  @media (max-width: 1200px) and (min-width: 769px) {
+    display: flex;
+;
+  }
+`;
 
 export default Dashboard;

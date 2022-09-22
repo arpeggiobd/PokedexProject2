@@ -2,6 +2,31 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { searchPokemon } from "../PokemonApi";
 
+function SearchBar(props) {
+    const { onSearch } = props
+    const [search, setSearch] = useState("");
+
+    const onChange = (e) => {
+        setSearch(e.target.value);
+        if (e.target.value.length === 0) {
+            onSearch(null);
+        }
+    };
+    const onClick = async (e) => {
+        onSearch(search)
+    };
+    return (
+        <Container>
+            <Div>
+                <Input placeholder="Search Pokemon" onChange={onChange} />
+            </Div>
+            <div>
+                <Button onClick={onClick}>Search</Button>
+            </div>
+        </Container>
+    );
+}
+
 const Container = styled.div`
   display: flex;
   margin: 0px 10px;
@@ -38,30 +63,5 @@ const Div = styled.div`background: white;
 padding-right: 20px;
 flex: 1;
 `;
-
-function SearchBar(props) {
-    const { onSearch } = props
-    const [search, setSearch] = useState("");
-
-    const onChange = (e) => {
-        setSearch(e.target.value);
-        if (e.target.value.length === 0) {
-            onSearch(null);
-        }
-    };
-    const onClick = async (e) => {
-        onSearch(search)
-    };
-    return (
-        <Container>
-            <Div>
-                <Input placeholder="Search Pokemon" onChange={onChange} />
-            </Div>
-            <div>
-                <Button onClick={onClick}>Search</Button>
-            </div>
-        </Container>
-    );
-}
 
 export default SearchBar;

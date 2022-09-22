@@ -8,22 +8,19 @@ import Dashboard from './Pages/Dashboard'
 import Header from "./components/Header";
 import PokemonDetail from "./Pages/PokemonDetail";
 
-
 const localStorageKey = "favorite_pokemon"
 
-
 function App() {
-
   const [favorites, setFavorites] = useState([]);
+
   const loadFavoritePokemons = () => {
     const pokemons =
       JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
     setFavorites(pokemons);
-
   }
+
   useEffect(() => {
     loadFavoritePokemons()
-
   }, []);
 
   const updateFavoritePokemons = (name) => {
@@ -37,6 +34,7 @@ function App() {
     setFavorites(updated)
     window.localStorage.setItem(localStorageKey, JSON.stringify(updated));
   }
+  
   return (
     <FavoriteProvider value={{
       favoritePokemons: favorites,

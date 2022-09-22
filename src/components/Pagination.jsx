@@ -1,6 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
+function Pagination(props) {
+    const { page, totalPages, onLeftClick, onRightClick } = props
+    return (
+        <PaginationDiv>
+            <Button onClick={onLeftClick}>
+                ◀️
+            </Button>
+            <div>
+                {page} of {totalPages}
+            </div>
+            <Button onClick={onRightClick}>
+                ▶️
+            </Button>
+        </PaginationDiv>
+    )
+}
+
 const PaginationDiv = styled.div`
 display: flex;
 flex-direction: row;
@@ -19,22 +36,5 @@ background-color: #363636;
   justify-content: center;
   cursor: pointer;
 `;
-
-function Pagination(props) {
-    const { page, totalPages, onLeftClick, onRightClick } = props
-    return (
-        <PaginationDiv>
-            <Button onClick={onLeftClick}>
-                ◀️
-            </Button>
-            <div>
-                {page} of {totalPages}
-            </div>
-            <Button onClick={onRightClick}>
-                ▶️
-            </Button>
-        </PaginationDiv>
-    )
-}
 
 export default Pagination;

@@ -1,6 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+
+
+function ProgressBar({ title, width, text }) {
+    const num = width + "%";
+    return (
+        <ProgressBarStyled>
+            <H3>{title}</H3>
+            <div className="progress">
+                <span style={{ width: num }}></span>
+            </div>
+            <H3 className="progress-bar">{text}</H3>
+        </ProgressBarStyled>
+    );
+}
+
 const ProgressBarStyled = styled.div`
   display: flex;
   align-items: center;
@@ -58,18 +73,5 @@ height: auto;
   //padding-right: 1.1rem;
   width: 200px;
 `;
-
-function ProgressBar({ title, width, text }) {
-    const num = width + "%";
-    return (
-        <ProgressBarStyled>
-            <H3>{title}</H3>
-            <div className="progress">
-                <span style={{ width: num }}></span>
-            </div>
-            <H3 className="progress-bar">{text}</H3>
-        </ProgressBarStyled>
-    );
-}
 
 export default ProgressBar;
