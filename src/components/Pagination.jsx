@@ -1,8 +1,7 @@
 import React from "react";
 
-function Pagination(props) {
+const Pagination = (props) => {
     const { page, totalPages, onLeftClick, onRightClick } = props
-
     return (
         <div className="pagination-container">
             <button onClick={onLeftClick}>
@@ -11,7 +10,7 @@ function Pagination(props) {
                 </div>
             </button>
             <div>
-                {page} of {totalPages}
+                {page} de {totalPages}
             </div>
             <button onClick={onRightClick}>
                 <div>
@@ -22,4 +21,4 @@ function Pagination(props) {
     )
 }
 
-export default Pagination
+export default Pagination;
