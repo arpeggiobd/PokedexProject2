@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import SearchBar from './components/SearchBar'
 import Pokedex from './components/PokeDex'
 import { PokemonApi } from './PokemonApi'
+import { getPokemonData } from './getPokemonData'
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       setLoading(true)
       const data = await PokemonApi();
       const promises = data.results.map(async (pokemon) => {
-        return await PokemonApi
+        return await getPokemonData(pokemon.url)
       })
       setPokemons(result)
       setLoading(false)
