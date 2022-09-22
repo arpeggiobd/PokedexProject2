@@ -1,0 +1,19 @@
+* {
+  margin: 0px;
+}
+
+nav {
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.nav-img {
+  width: 160px;
+}
+
+.App {
+  text-align: center;
+}
