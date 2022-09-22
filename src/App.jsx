@@ -10,7 +10,9 @@ import { searchPokemon } from "./SearchPokemon";
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom"
 import Dashboard from "./Dashboard";
 import PokemonDetail from "./components/PokemonDetail";
+import Favorite from "./Favorite";
 
+const localStorageKey = "favorite_pokemon"
 
 function ProfilePage() {
   let { pokemonIndex } = useParams()
@@ -18,17 +20,47 @@ function ProfilePage() {
 
 function App() {
 
+  const [favorites, setFavorites] = useState([]);
+  const loadFavoritePokemons = () => {
+    const pokemons =
+    JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
+  setFavorites(pokemons);
+      
+  }
+  useEffect(() => {
+    loadFavoritePokemons()
+  
+  }, []);
+  
+  const updateFavoritePokemons = (name) =>{
+    const updated = [...favorites];
+    const isFavorite = updated.indexOf(name);
+    if(isFavorite >=0){
+        updated.splice(isFavorite, 1);
+    }else{
+        updated.push(name)
+    }
+    setFavorites(updated)
+    window.localStorage.setItem(localStorageKey, JSON.stringify(updated));
+  }
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <div className="container">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/detail/:id" element={<PokemonDetail />} />
-          </Routes>
+    <FavoriteProvider value={{
+      favoritePokemons: favorites,
+      updateFavoritePokemon: updateFavoritePokemons
+    }}>
+      <BrowserRouter>
+        <div className="App">
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/favorite" element={<Favorite/>} />
+              <Route path="/detail/:id" element={<PokemonDetail />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </FavoriteProvider>
   );
 }
 
