@@ -6,78 +6,78 @@ import FavoriteContext from "../context/favoritesContext";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 function PokemonDetailed(props) {
-    const { pokemons } = props;
+  const { pokemons } = props;
 
-    const { favoritePokemons, updateFavoritePokemon } =
-        useContext(FavoriteContext);
+  const { favoritePokemons, updateFavoritePokemon } =
+    useContext(FavoriteContext);
 
-    const redHeart = "❤️";
-    const blackHeart = "🖤";
-    const heart = favoritePokemons.includes(pokemons.name) ? redHeart : blackHeart;
+  const redHeart = "❤️";
+  const blackHeart = "🖤";
+  const heart = favoritePokemons.includes(pokemons.name) ? redHeart : blackHeart;
 
-    const clickHeart = (e) => {
-        e.preventDefault();
-        updateFavoritePokemon(pokemons.name);
-    };
+  const clickHeart = (e) => {
+    e.preventDefault();
+    updateFavoritePokemon(pokemons.name);
+  };
 
-    console.log(pokemons);
+  console.log(pokemons);
 
-    return (
-        <div>
-            <Container className={pokemons.types && pokemons.types[0].type.name}>
-                <Top>
-                    <First>
-                        <NavLink exact to="/">
-                            <ArrowBackIosIcon fontSize="large" />
-                        </NavLink>
-                        <div>
-                            {" "}
-                            <Button onClick={clickHeart}>
-                                <Favorite>{heart}</Favorite>
-                            </Button>
-                        </div>
-                    </First>
-                    <Second>
-                        <Name>
-                            <H1>{pokemons.name}</H1>
-                            <Type>
-                                {pokemons.types &&
-                                    pokemons.types.map((type, idx) => {
-                                        return (
-                                            <Text
-                                                key={idx}
-                                                className={type.type.name}
-                                                id={type.type.name}
-                                            >
-                                                {type.type.name}
-                                            </Text>
-                                        );
-                                    })}
-                            </Type>
-                        </Name>
-                        <Id>#{pokemons.id}</Id>
-                    </Second>
-                    <Img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemons.id}.png`} />
-                </Top>
-                <Bottom>
-                    <B1>
-                        <H2>Status</H2>
-                    </B1>
-                    {pokemons.stats &&
-                        pokemons.stats.map((stat, idx) => {
-                            return (
-                                <ProgressBar
-                                    key={idx}
-                                    title={stat.stat.name}
-                                    width={stat.base_stat}
-                                    text={stat.base_stat}
-                                />
-                            );
-                        })}
-                </Bottom>
-            </Container>
-        </div>
-    );
+  return (
+    <div>
+      <Container className={pokemons.types && pokemons.types[0].type.name}>
+        <Top>
+          <First>
+            <NavLink exact to="/">
+              <ArrowBackIosIcon fontSize="large" />
+            </NavLink>
+            <div>
+              {" "}
+              <Button onClick={clickHeart}>
+                <Favorite>{heart}</Favorite>
+              </Button>
+            </div>
+          </First>
+          <Second>
+            <Name>
+              <H1>{pokemons.name}</H1>
+              <Type>
+                {pokemons.types &&
+                  pokemons.types.map((type, idx) => {
+                    return (
+                      <Text
+                        key={idx}
+                        className={type.type.name}
+                        id={type.type.name}
+                      >
+                        {type.type.name}
+                      </Text>
+                    );
+                  })}
+              </Type>
+            </Name>
+            <Id>#{pokemons.id}</Id>
+          </Second>
+          <Img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemons.id}.png`} />
+        </Top>
+        <Bottom>
+          <B1>
+            <H2>Status</H2>
+          </B1>
+          {pokemons.stats &&
+            pokemons.stats.map((stat, idx) => {
+              return (
+                <ProgressBar
+                  key={idx}
+                  title={stat.stat.name}
+                  width={stat.base_stat}
+                  text={stat.base_stat}
+                />
+              );
+            })}
+        </Bottom>
+      </Container>
+    </div>
+  );
 }
 
 const B2 = styled.div`

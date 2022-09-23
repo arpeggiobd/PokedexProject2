@@ -4,40 +4,40 @@ import FavoriteContext from "../context/favoritesContext";
 import styled from "styled-components";
 
 function Header() {
- 
-  const {favoritePokemons} = useContext(FavoriteContext)
+
+  const { favoritePokemons } = useContext(FavoriteContext)
   const pokedexLogo =
-        'https://falberthen.github.io/assets/img/posts/2022-02-12-pokedex/pokedex-logo.png';
-    const homeLogo = 
-        'https://library.kissclipart.com/20180930/owq/kissclipart-small-home-icon-clipart-computer-icons-house-deskt-07b351f234fbb78e.jpg'
-  
-  
-      return (
-          <Nav><NavLink exact to="/">
-            <Logo>
-          <img src={pokedexLogo} alt="pokedex-logo" />
-        </Logo>
+    'https://falberthen.github.io/assets/img/posts/2022-02-12-pokedex/pokedex-logo.png';
+  const homeLogo =
+    'https://library.kissclipart.com/20180930/owq/kissclipart-small-home-icon-clipart-computer-icons-house-deskt-07b351f234fbb78e.jpg'
+
+
+  return (
+    <Nav><NavLink exact to="/">
+      <Logo>
+        <img src={pokedexLogo} alt="pokedex-logo" />
+      </Logo>
+    </NavLink>
+      <NavMenu>
+        <NavLink exact to="/" className="hidden">
+          <img src={homeLogo} alt="home" />
+          <span>HOME</span>
         </NavLink>
-        <NavMenu>
-            <NavLink exact to="/" className="hidden">
-                <img src={homeLogo} alt="home" />
-                <span>HOME</span>            
-              </NavLink>
-                <NavLink exact to="/favorite" className="favorite">
-                <a>
-                <span>❤️{favoritePokemons.length} FAVORITE</span>
-              </a>
-              </NavLink>
-             
-           
-            </NavMenu>
-         
-          </Nav>
-      )
-  }
-  
-  
-  const Nav = styled.nav`
+        <NavLink exact to="/favorite" className="favorite">
+          <a>
+            <span>❤️{favoritePokemons.length} FAVORITE</span>
+          </a>
+        </NavLink>
+
+
+      </NavMenu>
+
+    </Nav>
+  )
+}
+
+
+const Nav = styled.nav`
     position: fixed;
     top: 0;
     left: 0;
@@ -51,7 +51,7 @@ function Header() {
     letter-spacing: 16px;
     z-index: 3;
   `;
-  const Logo = styled.a`
+const Logo = styled.a`
     padding: 0;
     width: 80px;
     margin-top: 4px;
@@ -64,7 +64,7 @@ function Header() {
     }
   `;
 
-  const NavMenu = styled.div`
+const NavMenu = styled.div`
     align-items: center;
     display: flex;
     flex-flow: row nowrap;
@@ -138,5 +138,5 @@ function Header() {
       justify-content: space-between;
     } }
   `;
-  
-  export default Header
+
+export default Header

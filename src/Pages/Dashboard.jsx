@@ -63,19 +63,19 @@ function Dashboard() {
   };
 
   return (
-<div>
-    <Header />
-    <SearchBar onSearch={onSearch} />
-    {notFound ? (
-            <Div className="not-found-text"><h1>Use Exact Name</h1></Div>
-          ) : (
-      <Pokedex
-        pokemons={pokemons}
-        page={page}
-        setPage={setPage}
-        total={total}
-        loading={loading}
-      />
+    <div>
+      <Header />
+      <SearchBar onSearch={onSearch} />
+      {notFound ? (
+        <Div className="not-found-text"><h1>Use Exact Name</h1></Div>
+      ) : (
+        <Pokedex
+          pokemons={pokemons}
+          page={page}
+          setPage={setPage}
+          total={total}
+          loading={loading}
+        />
       )}
     </div>
   );

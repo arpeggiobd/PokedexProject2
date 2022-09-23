@@ -4,73 +4,73 @@ import FavoriteContext from "../context/favoritesContext";
 import styled from "styled-components";
 
 function Pokemon(props) {
-    const { pokemon } = props;
-    const { favoritePokemons, updateFavoritePokemon } = useContext(FavoriteContext);
+  const { pokemon } = props;
+  const { favoritePokemons, updateFavoritePokemon } = useContext(FavoriteContext);
 
-    const redHeart = "❤️";
-    const blackHeart = "🖤";
-    const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart
-    const clickHeart = (e) => {
-        e.preventDefault();
-        updateFavoritePokemon(pokemon.name);
+  const redHeart = "❤️";
+  const blackHeart = "🖤";
+  const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart
+  const clickHeart = (e) => {
+    e.preventDefault();
+    updateFavoritePokemon(pokemon.name);
 
-    }
+  }
 
-    return (
-        <>
-            {pokemon.id <= 650 ?
-                <Link to={`/detail/` + pokemon.id} props={pokemon}>
-                    <Card className={pokemon.types[0].type.name}>
-                        <Img>
-                            <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
-                        </Img>
-                        <Body>
-                            <Top>
-                                <h3>{pokemon.name}</h3>
-                                <div>#{pokemon.id}</div>
-                            </Top>
-                            <Bottom>
-                                <Type>
-                                    {pokemon.types.map((type, idx) => {
-                                        return <Text key={idx} className={type.type.name}
-                                            id={type.type.name}>{type.type.name}</Text>
-                                    })}
-                                </Type>
-                                <button onClick={clickHeart}>
-                                    <Favorite>{heart}</Favorite>
-                                </button>
-                            </Bottom>
-                        </Body>
-                    </Card>
-                </Link> :
-                <Link to={`/detail/` + pokemon.id} props={pokemon}>
-                    <Card className={pokemon.types[0].type.name}>
-                        <Img>
-                            <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
-                        </Img>
-                        <Body>
-                            <Top>
-                                <h3>{pokemon.name}</h3>
-                                <div>#{pokemon.id}</div>
-                            </Top>
+  return (
+    <>
+      {pokemon.id <= 650 ?
+        <Link to={`/detail/` + pokemon.id} props={pokemon}>
+          <Card className={pokemon.types[0].type.name}>
+            <Img>
+              <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
+            </Img>
+            <Body>
+              <Top>
+                <h3>{pokemon.name}</h3>
+                <div>#{pokemon.id}</div>
+              </Top>
+              <Bottom>
+                <Type>
+                  {pokemon.types.map((type, idx) => {
+                    return <Text key={idx} className={type.type.name}
+                      id={type.type.name}>{type.type.name}</Text>
+                  })}
+                </Type>
+                <button onClick={clickHeart}>
+                  <Favorite>{heart}</Favorite>
+                </button>
+              </Bottom>
+            </Body>
+          </Card>
+        </Link> :
+        <Link to={`/detail/` + pokemon.id} props={pokemon}>
+          <Card className={pokemon.types[0].type.name}>
+            <Img>
+              <img src={`https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemon.id}.png?raw=true`} />
+            </Img>
+            <Body>
+              <Top>
+                <h3>{pokemon.name}</h3>
+                <div>#{pokemon.id}</div>
+              </Top>
 
-                            <Bottom>
-                                <Type>
-                                    {pokemon.types.map((type, idx) => {
-                                        return <Text key={idx} className={type.type.name}
-                                            id={type.type.name}>{type.type.name}</Text>
-                                    })}
-                                </Type>
-                                <Button onClick={clickHeart}  >
-                                    <Favorite>{heart}</Favorite>
-                                </Button>
-                            </Bottom>
-                        </Body>
-                    </Card>
-                </Link>
-            }
-        </>
-    );
+              <Bottom>
+                <Type>
+                  {pokemon.types.map((type, idx) => {
+                    return <Text key={idx} className={type.type.name}
+                      id={type.type.name}>{type.type.name}</Text>
+                  })}
+                </Type>
+                <Button onClick={clickHeart}  >
+                  <Favorite>{heart}</Favorite>
+                </Button>
+              </Bottom>
+            </Body>
+          </Card>
+        </Link>
+      }
+    </>
+  );
 }
 
 const Card = styled.div`

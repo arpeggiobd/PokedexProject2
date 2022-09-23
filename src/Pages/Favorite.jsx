@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Header from '../components/Header'
 import styled from "styled-components";
 import Pokemon from "../components/Pokemon";
@@ -7,75 +7,66 @@ import Pagination from "../components/Pagination";
 import FavoriteContext from '../context/favoritesContext';
 
 function Favorite() {
-    const [pokemons, setPokemons] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(0);
-    const [total, setTotal] = useState(0);
-    const {favoritePokemons} = useContext(FavoriteContext)
-   
-    
-    const fetchPokemons = async () => {
-        try {
-          setLoading(true);
-          
-          
-          const promises = favoritePokemons.map(async (pokemon) => {
-            return await searchPokemon(pokemon);
-          });
-         
-          
-          const results = await Promise.all(promises);
-         
-          //console.log(results)
-          //console.log(pokemons)
-          setPokemons(results);
-          setLoading(false);
-          setTotal(Math.ceil(promises.length / promises.length));
-          //setNotFound(false);
-        } catch (error) {
-            console.log("error:", error)
-        }
-      };
-
-      useEffect(() => {
-    
-          fetchPokemons();
-        console.log(favoritePokemons)
-      }, [favoritePokemons]);
-
-      const previousPage = () =>{
-        const nextPage = Math.max(page -1,0);
-        setPage(nextPage)
-        };
-        
-        const nextPage = () =>{
-            const nextPage = Math.min(page + 1,total);
-            setPage(nextPage)
-        };
+  const [pokemons, setPokemons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [total, setTotal] = useState(0);
+  const { favoritePokemons } = useContext(FavoriteContext)
 
 
-    return (
-        <div>
-            <Header/>
-            
-    
-      {favoritePokemons >= 0  ? <Div ><H1>You don't have any ❤️ Pokemon</H1></Div>:<>
-      <Container>
-      <H1>Favorites </H1>
-      <Pagination
-        page={page + 1}
-        totalPages={total}
-        onLeftClick={previousPage}
-        onRightClick={nextPage}
-      />
-    </Container>
-      <Info>
-        {pokemons.map((pokemon, idx) => {
-          return <Pokemon pokemon={pokemon} key={pokemon.name} />;
-        })}
-      </Info></>}
-        </div>
-    )
+  const fetchPokemons = async () => {
+    try {
+      setLoading(true);
+      const promises = favoritePokemons.map(async (pokemon) => {
+        return await searchPokemon(pokemon);
+      });
+      const results = await Promise.all(promises);
+      setPokemons(results);
+      setLoading(false);
+      setTotal(Math.ceil(promises.length / promises.length));
+    } catch (error) {
+      console.log("error:", error)
+    }
+  };
+
+  useEffect(() => {
+    fetchPokemons();
+    console.log(favoritePokemons)
+  }, [favoritePokemons]);
+
+  const previousPage = () => {
+    const nextPage = Math.max(page - 1, 0);
+    setPage(nextPage)
+  };
+
+  const nextPage = () => {
+    const nextPage = Math.min(page + 1, total);
+    setPage(nextPage)
+  };
+
+
+  return (
+    <div>
+      <Header />
+
+
+      {favoritePokemons >= 0 ? <Div ><H1>You don't have any ❤️ Pokemon</H1></Div> : <>
+        <Container>
+          <H1>Favorites </H1>
+          <Pagination
+            page={page + 1}
+            totalPages={total}
+            onLeftClick={previousPage}
+            onRightClick={nextPage}
+          />
+        </Container>
+        <Info>
+          {pokemons.map((pokemon, idx) => {
+            return <Pokemon pokemon={pokemon} key={pokemon.name} />;
+          })}
+        </Info></>}
+    </div>
+  )
 }
 
 const Container = styled.div`
